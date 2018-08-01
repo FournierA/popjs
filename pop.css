@@ -1,0 +1,33 @@
+.pop {
+    padding: 20px;
+    color: black;
+    border-left: 6px solid;
+    opacity: 0;
+    margin-bottom: 10px;
+    transition: opacity 0.5s ease;
+}
+
+.pop .close-btn {
+    float: right;
+    cursor: pointer;
+}
+
+.pop.danger {
+    background-color: #ffdddd;
+    border-color: #f44336;
+}
+
+.pop.warning {
+    background-color: #ffffcc;
+    border-color: #ffeb3b;
+}
+
+.pop.success {
+    background-color: #ddffdd;
+    border-color: #4CAF50;
+}
+
+.pop.open {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
