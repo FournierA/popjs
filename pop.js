@@ -10,7 +10,8 @@
             className: "warning",
             closeBtn: true,
             parent: document.body,
-            content: ""
+            content: "",
+            delay: 1000
         }
 
         if(arguments[0] && typeof arguments[0] === "object"){
@@ -29,13 +30,15 @@
         window.getComputedStyle(this.alert).height;
         this.alert.className = this.alert.className + " open";
 
-        setTimeout(function(){
-            _.alert.className = _.alert.className.replace(" open", "");
+        if(typeof this.options.delay === "number"){
+            setTimeout(function(){
+                _.alert.className = _.alert.className.replace(" open", "");
 
-            _.alert.addEventListener(_.transitionEnd, function(){
-                _.alert.parentNode.removeChild(_.alert);
-            });
-        }, 3000);
+                _.alert.addEventListener(_.transitionEnd, function(){
+                    _.alert.parentNode.removeChild(_.alert);
+                });
+            }, this.options.delay);
+        }
     }
 
     Pop.prototype.close = function(){
