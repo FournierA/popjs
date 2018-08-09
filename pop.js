@@ -2,6 +2,7 @@
 
     this.Pop = function(){
 
+        this.list = [];
         this.closeBtn = null;
         this.alert = null;
         this.transitionEnd = transitionSelect();
@@ -11,12 +12,17 @@
             closeBtn: true,
             parent: document.body,
             content: "",
-            delay: 1000
+            delay: false
         }
 
         if(arguments[0] && typeof arguments[0] === "object"){
             this.options = extendDefaults(defaults, arguments[0]);
         }
+    }
+
+    Pop.prototype.add = function(content){
+        if(content !== undefined) this.options.content = content;
+        build.call(this);
     }
 
     Pop.prototype.push = function(content){
@@ -50,16 +56,6 @@
         this.alert.addEventListener(this.transitionEnd, function(){
             _.alert.parentNode.removeChild(_.alert);
         });
-    }
-
-    function extendDefaults(source, properties) {
-        var property;
-        for (property in properties) {
-          if (properties.hasOwnProperty(property)) {
-            source[property] = properties[property];
-          }
-        }
-        return source;
     }
 
     function build(){
@@ -99,6 +95,16 @@
         if (el.style.WebkitTransition) return "webkitTransitionEnd";
         if (el.style.OTransition) return "oTransitionEnd";
         return 'transitionend';
+    }
+
+    function extendDefaults(source, properties) {
+        var property;
+        for (property in properties) {
+          if (properties.hasOwnProperty(property)) {
+            source[property] = properties[property];
+          }
+        }
+        return source;
     }
 
     function initializeEvents(){
