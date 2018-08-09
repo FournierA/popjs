@@ -1,8 +1,45 @@
 (function(){
 
+    var i = 0;
+
     this.Pop = function(){
 
         this.list = [];
+        this.closeBtn = null;
+        this.alert = null;
+        this.transitionEnd = transitionSelect();
+
+        var defaults = {
+            type: "warning",
+            closeBtn: true,
+            parent: document.body,
+            content: "",
+            delay: false
+        }
+
+        if(arguments[0] && typeof arguments[0] == "object"){
+            this.options = extendDefaults(defaults, arguments[0]);
+        }
+    }
+
+    Pop.prototype.push = function(text){
+
+        this.list[i] = new Alert({
+            className: this.options.type,
+            closeBtn: this.options.closeBtn,
+            parent: this.options.parent,
+            content: text,
+            delay: this.options.delay,
+            n: i
+        });
+
+        this.list[i].push();
+
+        i++;
+    }
+
+    this.Alert = function(){
+
         this.closeBtn = null;
         this.alert = null;
         this.transitionEnd = transitionSelect();
@@ -20,12 +57,7 @@
         }
     }
 
-    Pop.prototype.add = function(content){
-        if(content !== undefined) this.options.content = content;
-        build.call(this);
-    }
-
-    Pop.prototype.push = function(content){
+    Alert.prototype.push = function(content){
 
         var _ = this;
 
@@ -47,7 +79,7 @@
         }
     }
 
-    Pop.prototype.close = function(){
+    Alert.prototype.close = function(){
 
         var _ = this;
 
